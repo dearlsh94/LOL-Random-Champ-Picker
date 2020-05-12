@@ -28,3 +28,4 @@ firebase.json
 database.rules.json
 storage.rules
 /src/shared/FirebaseConf.tsx
+/.firebase

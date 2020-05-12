@@ -8,4 +8,6 @@ const lang: string = 'ko_KR';
 *   - {champions}
 *       - id, name, tags
 */
-export const GET_LOL_CHAMPIONS_URL: string = 'http://ddragon.leagueoflegends.com/cdn/10.9.1/data/' + lang + '/champion.json';
+
+// http 사용할 경우 mixed content (혼합 콘텐츠 방지) 에러 발생 > https로 사용.
+export const GET_LOL_CHAMPIONS_URL: string = 'https://ddragon.leagueoflegends.com/cdn/10.9.1/data/' + lang + '/champion.json';

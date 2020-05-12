@@ -1,5 +1,6 @@
 export default interface IChampion {
-    id: string,
-    name: string,
+    key: number,
+    id: String,
+    name: String,
     tags: Array<String>
 }

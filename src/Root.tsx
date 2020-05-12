@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import Loading from './Loading';
 
-//import { initFirebase } from './shared/Firebase';
+import { initFirebase } from './shared/Firebase';
 
 interface IState {
     isLoadded: boolean,
@@ -19,14 +19,12 @@ export default class Root extends Component<{}, IState> {
             isLoadded: false,
         }
 
-        /*
         initFirebase()
             .then(() => {
                 this.setState({
                     isLoadded: true,
                 });
             });
-        */
     }
     
     render() {
