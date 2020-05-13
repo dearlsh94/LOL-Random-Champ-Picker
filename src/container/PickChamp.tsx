@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 
 import IChampion from '../models/IChampion';
 
-import {_getChampions} from '../util/lolUtil';
+import {_getRandomChampion, _getRandomLine} from '../util/lolUtil';
 
 interface IProps{
 
 }
 
 interface IState{
-    isReady: boolean,
     pickedChampion: IChampion | null,
+    pickedLine: String | null,
     championList: Array<IChampion> | null
 }
 
@@ -20,65 +20,53 @@ class PickChamp extends Component <IProps, IState>{
         super(props);
 
         this.state = {
-            isReady: false,
             pickedChampion: null,
+            pickedLine: null,
             championList: null
         }
     }
 
-    componentDidMount() {
-        _getChampions()
+    pickLine = () => {
+        console.log('run pickLine');
+        _getRandomLine()
             .then((res: any) => {
                 this.setState({
-                    championList: res
+                    pickedLine: res
                 })
             })
-            .then(() => {
-                this.setState({
-                    isReady: true
-                })
-            })
-            .catch((err: any) => {
-                console.log(err);
-            })
+
+        console.log('end pickLine');
     }
 
     pickChamp = () => {
         console.log('run pickChamp');
 
-        if ( this.state.championList !== null ) {
-            const min: number = 0;
-            const max: number = this.state.championList.length;
-            const rand: number = min + Math.random() * (max - min);
-    
-            const pickNum: number = parseInt(rand.toString(), 10);
-    
-            console.log(pickNum);
-    
-            const pickChampion: IChampion = this.state.championList.filter((champion: IChampion) => 
-                champion.key === pickNum
-            )[0];
-    
-            console.log(pickChampion);
-
-            this.setState({
-                pickedChampion: pickChampion
+        _getRandomChampion()
+            .then((res: any) => {
+                this.setState({
+                    pickedChampion: res
+                })
             })
-        }
+            .then(() => {
+                this.pickLine();
+            })
+            .catch((err: any) => {
+                console.log(err);
+            });
 
         console.log('end pickChamp');
     }
 
     render(){
-        const { isReady, pickedChampion } = this.state;
+        const { pickedChampion, pickedLine } = this.state;
         return(
             <div>
                 <div>What's your Champ?</div>
-                {isReady && 
-                    <button onClick={this.pickChamp}>Pick</button>}
-                {pickedChampion &&
+                <button onClick={this.pickChamp}>Pick</button>
+                {(pickedChampion && pickedLine) &&
                     <div>
-                        your champion is {pickedChampion.name}  
+                        <li>your champion is {pickedChampion.name}</li>
+                        <li>your Line is {pickedLine}</li>
                     </div>}
             </div>
         );
