@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 import IChampion from '../models/IChampion';
+import ISPell from '../models/ISpell';
 
-import {_getRandomChampion, _getRandomLine} from '../util/lolUtil';
+import {_getRandomChampion, _getRandomLine, _getRandomSpell, _getRandomRune, _getRandomBuild} from '../util/lolUtil';
 
 interface IProps{
 
@@ -11,6 +12,9 @@ interface IProps{
 interface IState{
     pickedChampion: IChampion | null,
     pickedLine: String | null,
+    pickedSpell: String | null,
+    pickedRune: String | null,
+    pickedBuild: String | null,
     championList: Array<IChampion> | null
 }
 
@@ -22,6 +26,9 @@ class PickChamp extends Component <IProps, IState>{
         this.state = {
             pickedChampion: null,
             pickedLine: null,
+            pickedSpell: null,
+            pickedRune: null,
+            pickedBuild: null,
             championList: null
         }
     }
@@ -29,7 +36,7 @@ class PickChamp extends Component <IProps, IState>{
     pickLine = () => {
         console.log('run pickLine');
         _getRandomLine()
-            .then((res: any) => {
+            .then((res: String) => {
                 this.setState({
                     pickedLine: res
                 })
@@ -38,17 +45,62 @@ class PickChamp extends Component <IProps, IState>{
         console.log('end pickLine');
     }
 
+    pickSpell = () => {
+        console.log('run pickSpell');
+        _getRandomSpell()
+            .then((res: ISPell) => {
+                this.setState({
+                    pickedSpell: res.name
+                })
+            })
+
+        console.log('end pickSpell');
+    }
+
+    pickRune = () => {
+        console.log('run pickRune');
+        _getRandomRune()
+            .then((res: String) => {
+                this.setState({
+                    pickedRune: res
+                })
+            })
+
+        console.log('end pickRune');
+    }
+
+    pickBuild = () => {
+        console.log('run pickBuild');
+        _getRandomBuild()
+            .then((res: String) => {
+                this.setState({
+                    pickedBuild: res
+                })
+            })
+
+        console.log('end pickBuild');
+    }
+
     pickChamp = () => {
         console.log('run pickChamp');
 
         _getRandomChampion()
-            .then((res: any) => {
+            .then((res: IChampion) => {
                 this.setState({
                     pickedChampion: res
                 })
             })
             .then(() => {
                 this.pickLine();
+            })
+            .then(() => {
+                this.pickSpell();
+            })
+            .then(() => {
+                this.pickRune();
+            })
+            .then(() => {
+                this.pickBuild();
             })
             .catch((err: any) => {
                 console.log(err);
@@ -58,15 +110,18 @@ class PickChamp extends Component <IProps, IState>{
     }
 
     render(){
-        const { pickedChampion, pickedLine } = this.state;
+        const { pickedChampion, pickedLine, pickedSpell, pickedRune, pickedBuild } = this.state;
         return(
             <div>
                 <div>What's your Champ?</div>
                 <button onClick={this.pickChamp}>Pick</button>
-                {(pickedChampion && pickedLine) &&
+                {(pickedChampion && pickedLine && pickedSpell && pickedRune) &&
                     <div>
                         <li>your champion is {pickedChampion.name}</li>
                         <li>your Line is {pickedLine}</li>
+                        <li>your Spell is {pickedSpell}</li>
+                        <li>your Rune is {pickedRune}</li>
+                        <li>your Build is {pickedBuild}</li>
                     </div>}
             </div>
         );
