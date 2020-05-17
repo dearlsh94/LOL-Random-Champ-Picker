@@ -113,7 +113,7 @@ class PickChamp extends Component <IProps, IState>{
         const { pickedChampion, pickedLine, pickedSpell, pickedRune, pickedBuild } = this.state;
         return(
             <div>
-                <div>What's your Champ?</div>
+                <div>What's your Champion?</div>
                 <button onClick={this.pickChamp}>Pick</button>
                 {(pickedChampion && pickedLine && pickedSpell && pickedRune) &&
                     <div>

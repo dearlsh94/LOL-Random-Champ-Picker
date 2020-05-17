@@ -5,7 +5,7 @@ import IChampion from '../models/IChampion';
 import ISpell from '../models/ISpell';
 
 export function _getChampions() {
-    return new Promise((resolve, reject) => {
+    return new Promise<Array<IChampion>>((resolve, reject) => {
         axios.get(GET_LOL_CHAMPIONS)
             .then((res) => {
                 const lists = Object.entries(res.data.data);
@@ -29,8 +29,37 @@ export function _getChampions() {
     });
 }
 
+export function _getChampionByKeys(keys: Array<number>) {
+    return new Promise((resolve, reject) => {
+        axios.get(GET_LOL_CHAMPIONS)
+            .then((res) => {
+                const lists = Object.entries(res.data.data);
+                const champions: Array<IChampion> = [];
+
+                lists.map((champ: any, index: number) => {
+                    champions.push({
+                        key: index,
+                        id: champ[1].id,
+                        name: champ[1].name,
+                        tags: champ[1].tags
+                    })
+                });
+
+                const champion = champions.filter((champion: any) => {
+                    return keys.includes(champion.key);
+                });
+                
+                resolve(champion);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    });
+}
+
 export function _getRandomChampion() {
     return new Promise<IChampion>((resolve, reject) => {
+        
         axios.get(GET_LOL_CHAMPIONS)
             .then((res) => {
                 const lists = Object.entries(res.data.data);
@@ -60,6 +89,33 @@ export function _getRandomChampion() {
             .catch((err) => {
                 
                 reject(err);
+            });
+    });
+}
+
+export function _getFiveRandomChampionKey() {
+    return new Promise<Array<number>>((resolve, reject) => {
+
+        const pickNums: Array<number> = new Array<number>();
+
+        _getChampions()
+            .then((res: Array<IChampion>) => {
+                const min: number = 0;
+                const max: number = res.length;
+                
+                for(let i=0; i<5; i++) {
+                    const rand: number = min + Math.random() * (max - min);
+                    const pickNum: number = parseInt(rand.toString(), 10);
+
+                    if (pickNums.includes(pickNum)){
+                        i--;
+                        continue;
+                    }
+
+                    pickNums.push(pickNum);
+                }
+
+                resolve(pickNums);
             });
     });
 }
@@ -151,4 +207,8 @@ export function _getRandomBuild() {
 
         resolve(pickBuild);
     });
+}
+
+export function _getAllLines() {
+    return GET_LOL_LINES;
 }
