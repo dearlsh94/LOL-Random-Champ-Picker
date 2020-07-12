@@ -13,10 +13,10 @@ const lang: string = 'ko_KR';
 export const GET_LOL_CHAMPIONS: string = 'https://ddragon.leagueoflegends.com/cdn/10.9.1/data/' + lang + '/champion.json';
 
 // http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg
-export const GET_LOL_CHAMPION_IMAGE: string = 'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/'; // + {ChampionId}_0.jpg
+export const GET_LOL_CHAMPION_IMAGE: string = 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/'; // + {ChampionId}_0.jpg
 
 // http://ddragon.leagueoflegends.com/cdn/10.10.3208608/img/champion/Aatrox.png
-export const GET_LOL_CHAMPION_SQUARE_IMAGE: string = 'http://ddragon.leagueoflegends.com/cdn/10.10.3208608/img/champion/'; // + {ChampionId}.png';
+export const GET_LOL_CHAMPION_SQUARE_IMAGE: string = 'https://ddragon.leagueoflegends.com/cdn/10.10.3208608/img/champion/'; // + {ChampionId}.png';
 
 export const GET_LOL_LINES = new Array<String>(
     "TOP", 
@@ -64,7 +64,7 @@ export const GET_LOL_BUILD = new Array<String>(
     "5엑티브아이템"
 );
 
-export const GET_LOL_SPELLS: string = 'http://ddragon.leagueoflegends.com/cdn/10.10.3208608/data/' + lang + '/summoner.json';
+export const GET_LOL_SPELLS: string = 'https://ddragon.leagueoflegends.com/cdn/10.10.3208608/data/' + lang + '/summoner.json';
 
 // http://ddragon.leagueoflegends.com/cdn/10.10.3208608/img/spell/SummonerFlash.png
-export const GET_LOL_SPELL_IMAGE: string = 'http://ddragon.leagueoflegends.com/cdn/10.10.3208608/img/spell/'; // + {SpellId}.png';
+export const GET_LOL_SPELL_IMAGE: string = 'https://ddragon.leagueoflegends.com/cdn/10.10.3208608/img/spell/'; // + {SpellId}.png';
